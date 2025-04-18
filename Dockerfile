@@ -184,11 +184,11 @@ RUN echo "🔍 [2.6] 检查 CUDA / cuDNN / NCCL 安装状态..." && \
 RUN echo "🔧 [3.1] 安装 PyTorch Nightly..." && \
     python3.11 -m pip install --upgrade pip && \
     python3.11 -m pip install --pre \
-        torch==2.8.0.dev20250326+cu128 \
-        torchvision==0.22.0.dev20250326+cu128 \
-        torchaudio==2.6.0.dev20250326+cu128 \
-        torch-tensorrt==2.7.0.dev20250326+cu128 \
-        --extra-index-url https://download.pytorch.org/whl/nightly/cu128 \
+        torch=2.6.0+cu126 \
+        torchvision==0.21.0+cu126 \
+        torchaudio==2.6.0+cu126 \
+        torch-tensorrt==2.6.0+cu126 \
+        --extra-index-url https://download.pytorch.org/whl/cu126 \
         --no-cache-dir && \
     rm -rf /root/.cache /tmp/* ~/.cache && \
     echo "✅ [3.1] PyTorch 安装完成"
@@ -222,7 +222,7 @@ RUN git clone https://github.com/salesforce/BLIP.git /app/repositories/BLIP
 RUN git clone https://github.com/lllyasviel/huggingface_guess.git /app/repositories/huggingface_guess
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets.git /app/repositories/stable-diffusion-webui-assets
 RUN git clone https://github.com/lllyasviel/google_blockly_prototypes.git /app/repositories/google_blockly_prototypes
-RUN pip install --no-cache-dir --pre -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/nightly/cu128
+RUN pip install --no-cache-dir -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu126
 
 # Copy the rest of the application files
 COPY . .
