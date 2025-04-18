@@ -222,7 +222,7 @@ RUN git clone https://github.com/salesforce/BLIP.git /app/repositories/BLIP
 RUN git clone https://github.com/lllyasviel/huggingface_guess.git /app/repositories/huggingface_guess
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets.git /app/repositories/stable-diffusion-webui-assets
 RUN git clone https://github.com/lllyasviel/google_blockly_prototypes.git /app/repositories/google_blockly_prototypes
-RUN pip install --no-cache-dir -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu121
+RUN pip install --no-cache-dir -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu126
 
 # Copy the rest of the application files
 COPY . .
