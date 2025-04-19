@@ -4,6 +4,10 @@ FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 # Set the working directory in the container
 WORKDIR /app
 
+RUN echo "🔧 [1.1] 设置系统时区为 ${TZ}..." && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    echo "✅ [1.1] 时区设置完成"
+
 # ================================================================
 # 🧱 2.1 安装 Python 3.11 + 基础系统依赖
 # ================================================================
@@ -515,7 +519,6 @@ RUN echo "📦 [9] 处理资源下载..." && \
 COPY . .
 
 # Set environment variables to streamline application performance
-ENV TZ=Asia/Shanghai
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
