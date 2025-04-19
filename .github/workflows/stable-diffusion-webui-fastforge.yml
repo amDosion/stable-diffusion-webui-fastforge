@@ -43,8 +43,12 @@ jobs:
           echo "Old auto SHA:  $old_auto_sha"
           echo "New auto SHA:  $auto_sha"
 
-          if [ "$forge_sha" = "$old_forge_sha" ] && [ "$auto_sha" = "$old_auto_sha" ]; then
-            echo "✅ No changes in upstream"
+          # Compare against the Dockerfile SHA as well
+          dockerfile_sha=$(git rev-parse HEAD Dockerfile)
+          echo "Dockerfile SHA: $dockerfile_sha"
+
+          if [ "$forge_sha" = "$old_forge_sha" ] && [ "$auto_sha" = "$old_auto_sha" ] && [ "$dockerfile_sha" = "$old_dockerfile_sha" ]; then
+            echo "✅ No changes in upstream or Dockerfile"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -52,6 +56,7 @@ jobs:
           echo "🆕 Changes detected!"
           echo "$forge_sha" > .sha_cache
           echo "$auto_sha" >> .sha_cache
+          echo "$dockerfile_sha" >> .sha_cache
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: 🧹 Free up Disk Space (for TensorRT)
